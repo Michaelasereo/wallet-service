@@ -1,0 +1,138 @@
+{
+  "info": {
+    "name": "Wallet Service API",
+    "description": "Complete API collection for Wallet Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Wallet Management",
+      "item": [
+        {
+          "name": "Create Wallet",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ownerName\": \"John Doe\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/wallets",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["wallets"]
+            },
+            "description": "Create a new wallet with optional owner name"
+          },
+          "response": []
+        },
+        {
+          "name": "Fund Wallet",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "fund-{{$timestamp}}",
+                "description": "Unique key for idempotent operations"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 100.50\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/wallets/{{walletId}}/fund",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["wallets", "{{walletId}}", "fund"]
+            },
+            "description": "Add funds to an existing wallet. Include Idempotency-Key header to prevent duplicate operations."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Wallet Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/wallets/{{walletId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["wallets", "{{walletId}}"]
+            },
+            "description": "Get wallet details including balance and transaction history"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transfers",
+      "item": [
+        {
+          "name": "Transfer Funds",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "transfer-{{$timestamp}}",
+                "description": "Unique key for idempotent operations"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fromWalletId\": \"{{wallet1Id}}\",\n  \"toWalletId\": \"{{wallet2Id}}\",\n  \"amount\": 25.50\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/transfers",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["transfers"]
+            },
+            "description": "Transfer funds between two wallets. Include Idempotency-Key header to prevent duplicate transfers."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "walletId",
+      "value": "replace-with-wallet-id",
+      "type": "string"
+    },
+    {
+      "key": "wallet1Id",
+      "value": "replace-with-first-wallet-id",
+      "type": "string"
+    },
+    {
+      "key": "wallet2Id",
+      "value": "replace-with-second-wallet-id",
+      "type": "string"
+    }
+  ]
+}
+
