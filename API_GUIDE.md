@@ -1,4 +1,4 @@
-# Wallet Service API Guide by Opeyemi Michaell-Asere 
+# Wallet Service API Guide by Opeyemi Michael-Asere 
 
 ## Overview
 A complete wallet management system with transaction capabilities built with NestJS, TypeORM, and SQLite.
